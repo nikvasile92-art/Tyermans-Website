@@ -1,0 +1,119 @@
+---
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="container site-footer__grid">
+    <div>
+      <div class="brand">
+        <span class="brand__mark" aria-hidden="true">T</span>
+        <div>
+          <strong>Tyerman's Automotive &amp; Suspension</strong>
+          <div class="muted">Family-owned in Burbank since 1948</div>
+        </div>
+      </div>
+      <p class="muted small" style="margin-top:12px;">
+        ASE-trained technicians. Honest, friendly service for the
+        cars and drivers of the San Fernando Valley.
+      </p>
+    </div>
+
+    <div>
+      <h4>Visit</h4>
+      <p class="muted">
+        1420 W Magnolia Blvd<br/>
+        Burbank, CA 91506
+      </p>
+      <p class="muted">
+        Mon–Fri: 8:00&nbsp;AM – 5:00&nbsp;PM<br/>
+        Sat &amp; Sun: Closed
+      </p>
+    </div>
+
+    <div>
+      <h4>Contact</h4>
+      <p class="muted">
+        <a href="tel:+18188467291">(818)&nbsp;846-7291</a><br/>
+        <a href="mailto:service@tyermans.example.com">service@tyermans.example.com</a>
+      </p>
+    </div>
+
+    <div>
+      <h4>Quick links</h4>
+      <ul class="links">
+        <li><a href="/services">Services</a></li>
+        <li><a href="/gallery">Photo album</a></li>
+        <li><a href="/appointment">Book appointment</a></li>
+        <li><a href="/contact">Contact &amp; directions</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="container site-footer__base">
+    <span>&copy; {year} Tyerman's Automotive &amp; Suspension. All rights reserved.</span>
+    <span class="muted small">Information sourced from tyermans.com.</span>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--color-bg-dark);
+    color: #cdd5e0;
+    padding: 64px 0 24px;
+    margin-top: 80px;
+  }
+  .site-footer h4 {
+    color: #ffffff;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 12px;
+  }
+  .site-footer__grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 32px;
+  }
+  .site-footer .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #fff;
+  }
+  .site-footer .brand strong { color: #fff; }
+  .site-footer .brand__mark {
+    width: 40px; height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-primary);
+    color: #fff;
+    border-radius: 8px;
+    font-weight: 800;
+  }
+  .muted { color: #97a2b3; }
+  .small { font-size: 0.88rem; }
+  .links { list-style: none; padding: 0; margin: 0; }
+  .links li { margin: 6px 0; }
+  .links a { color: #cdd5e0; }
+  .links a:hover { color: #fff; }
+  .site-footer a { color: #cdd5e0; }
+  .site-footer a:hover { color: #fff; }
+
+  .site-footer__base {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    font-size: 0.85rem;
+  }
+
+  @media (max-width: 820px) {
+    .site-footer__grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 540px) {
+    .site-footer__grid { grid-template-columns: 1fr; }
+    .site-footer__base { flex-direction: column; gap: 6px; align-items: flex-start; }
+  }
+</style>

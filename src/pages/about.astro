@@ -1,0 +1,134 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const milestones = [
+  { year: "1948", title: "Tyerman's opens", body: "Dave Tyerman, an engineer at Lockheed, opens a small alignment & suspension shop in Burbank." },
+  { year: "1960s", title: "Specialty products", body: "Dave develops a handful of suspension and alignment specialty products that gain a following across Los Angeles." },
+  { year: "1970s", title: "13-bay expansion", body: "The shop expands to its current 13-bay layout on West Magnolia Boulevard." },
+  { year: "Today", title: "Full-service shop", body: "We've added engine repair, diagnostics, electronic troubleshooting, and brake & suspension upgrades — while staying family-run." },
+];
+---
+<Layout title="About — Tyerman's Automotive & Suspension">
+  <section class="page-hero">
+    <div class="container about-hero">
+      <div>
+        <span class="eyebrow">Our story</span>
+        <h1>Three quarters of a century in Burbank.</h1>
+        <p>
+          Tyerman's was started in 1948 by Dave Tyerman, a Lockheed engineer who
+          specialized in suspension, frame, alignment and brakes. As the
+          business grew, Dave expanded the shop to its current size — 13 bays
+          on West Magnolia — and Tyerman's became known across the Los Angeles
+          area for its expertise.
+        </p>
+        <p>
+          We're still family-run, still on Magnolia, and still doing the work
+          that built the shop's reputation: suspension, alignment, brakes — and
+          all of the modern repairs a daily driver needs to stay on the road.
+        </p>
+      </div>
+      <div class="about-hero__media" aria-hidden="true">
+        <img
+          src="https://images.unsplash.com/photo-1632823469850-1e7e44a5b6f5?auto=format&fit=crop&w=1100&q=80"
+          alt="Vintage style auto shop sign"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">Timeline</span>
+      <h2>A few milestones along the way.</h2>
+      <ol class="timeline">
+        {milestones.map((m) => (
+          <li>
+            <div class="timeline__year">{m.year}</div>
+            <div class="timeline__body">
+              <h3>{m.title}</h3>
+              <p>{m.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="container">
+      <div class="grid grid--3">
+        <article class="card">
+          <span class="icon-circle">⚙️</span>
+          <h3>Specialists, not generalists</h3>
+          <p>Our techs grew up under cars. Suspension and alignment are in our DNA — we'll find pulls and noises other shops can't.</p>
+        </article>
+        <article class="card">
+          <span class="icon-circle">🤝</span>
+          <h3>Honest estimates</h3>
+          <p>We diagnose, then call you with options before any extra work happens. No surprise charges at pickup.</p>
+        </article>
+        <article class="card">
+          <span class="icon-circle">🏡</span>
+          <h3>Local for life</h3>
+          <p>We sponsor little league teams and know our customers by name and by car. We're here for the long haul.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-hero {
+    padding: 72px 0;
+    background: linear-gradient(180deg, #f6f8fb 0%, #ffffff 100%);
+  }
+  .about-hero {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .about-hero p {
+    color: var(--color-text-muted);
+    font-size: 1.05rem;
+  }
+  .about-hero__media img {
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    width: 100%;
+  }
+  @media (max-width: 880px) {
+    .about-hero { grid-template-columns: 1fr; }
+  }
+
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin: 32px 0 0;
+    display: grid;
+    gap: 16px;
+  }
+  .timeline li {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 24px;
+    padding: 20px;
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    align-items: start;
+  }
+  .timeline__year {
+    font-weight: 800;
+    color: var(--color-primary);
+    font-size: 1.25rem;
+  }
+  .timeline__body h3 { margin: 0 0 4px; }
+  .timeline__body p { color: var(--color-text-muted); margin: 0; }
+  @media (max-width: 540px) {
+    .timeline li { grid-template-columns: 1fr; gap: 4px; }
+  }
+</style>

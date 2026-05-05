@@ -1,0 +1,285 @@
+---
+import Layout from "../layouts/Layout.astro";
+import AppointmentScheduler from "../components/AppointmentScheduler.tsx";
+---
+<Layout title="Book an Appointment — Tyerman's Automotive & Suspension">
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Book online</span>
+      <h1>Schedule a visit.</h1>
+      <p>
+        Pick a service, choose a day and time, and we'll confirm by phone or
+        email within one business day. Prefer to talk to a human?{" "}
+        <a href="tel:+18188467291">Call (818) 846-7291</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container booking">
+      <div class="booking__form">
+        <AppointmentScheduler client:load />
+      </div>
+
+      <aside class="booking__aside">
+        <h3>Visit</h3>
+        <p>
+          1420 W Magnolia Blvd<br/>
+          Burbank, CA 91506
+        </p>
+        <h3>Hours</h3>
+        <p>
+          Mon–Fri: 8:00 AM – 5:00 PM<br/>
+          Sat &amp; Sun: Closed
+        </p>
+        <h3>What to bring</h3>
+        <ul>
+          <li>Your vehicle (obviously!)</li>
+          <li>Keys &amp; key fob</li>
+          <li>Any prior service records, if you have them</li>
+        </ul>
+        <p class="muted">
+          Tip: drop-offs before 8:30 AM usually get same-day turnaround for
+          alignments and brake jobs.
+        </p>
+      </aside>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-hero {
+    padding: 72px 0 24px;
+    background: linear-gradient(180deg, #f6f8fb 0%, #ffffff 100%);
+  }
+  .page-hero p { color: var(--color-text-muted); max-width: 60ch; }
+
+  .booking {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+  .booking__form {
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 28px;
+    box-shadow: var(--shadow-sm);
+  }
+  .booking__aside {
+    background: var(--color-bg-soft);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 24px;
+  }
+  .booking__aside h3 {
+    margin-top: 0;
+    margin-bottom: 4px;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-text-muted);
+  }
+  .booking__aside h3:not(:first-child) { margin-top: 18px; }
+  .booking__aside p, .booking__aside ul { color: var(--color-text); margin: 0 0 4px; }
+  .booking__aside ul { padding-left: 18px; }
+  .booking__aside .muted { color: var(--color-text-muted); font-size: 0.9rem; margin-top: 12px; }
+  @media (max-width: 880px) {
+    .booking { grid-template-columns: 1fr; }
+  }
+
+  /* ===== Scheduler styling (used by AppointmentScheduler.tsx) ===== */
+  :global(.sched) { display: block; }
+
+  :global(.sched__steps) {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    counter-reset: step;
+  }
+  :global(.sched__steps li) {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    background: var(--color-bg-soft);
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  :global(.sched__steps li.is-active) {
+    background: var(--color-primary);
+    color: #fff;
+    border-color: var(--color-primary);
+  }
+  :global(.sched__steps li span) {
+    width: 22px; height: 22px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.4);
+    color: inherit;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.8rem;
+  }
+  :global(.sched__steps li:not(.is-active) span) {
+    background: var(--color-border);
+  }
+
+  :global(.sched__panel) {
+    border: 0;
+    padding: 0;
+    margin: 0;
+  }
+  :global(.sched__panel legend) {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text);
+    padding: 0;
+    margin-bottom: 4px;
+  }
+  :global(.sched__hint) {
+    color: var(--color-text-muted);
+    margin: 0 0 18px;
+    font-size: 0.95rem;
+  }
+  :global(.sched__hint--small) { font-size: 0.85rem; }
+
+  :global(.sched__subhead) {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-text-muted);
+    margin: 16px 0 8px;
+    font-weight: 700;
+  }
+
+  :global(.sched__grid) {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+  :global(.sched__days) {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 8px;
+  }
+  :global(.sched__times) {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+    gap: 8px;
+  }
+
+  :global(.pick) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 12px 14px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    background: #fff;
+    font-size: 0.95rem;
+    color: var(--color-text);
+    transition: border-color 0.18s ease, background 0.18s ease, color 0.18s ease;
+  }
+  :global(.pick:hover) {
+    border-color: var(--color-accent);
+  }
+  :global(.pick input) { display: none; }
+  :global(.pick.is-selected) {
+    border-color: var(--color-primary);
+    background: rgba(200, 16, 46, 0.06);
+    color: var(--color-primary-dark);
+    font-weight: 600;
+  }
+
+  :global(.sched__formgrid) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  :global(.field) {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  :global(.field--full) { grid-column: 1 / -1; }
+  :global(.field span) {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    font-weight: 500;
+  }
+  :global(.field span i) {
+    color: var(--color-primary);
+    font-style: normal;
+    margin-left: 2px;
+  }
+  :global(.field input),
+  :global(.field textarea) {
+    font: inherit;
+    padding: 10px 12px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: #fff;
+    color: var(--color-text);
+    transition: border-color 0.18s ease, box-shadow 0.18s ease;
+  }
+  :global(.field input:focus),
+  :global(.field textarea:focus) {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(31, 78, 133, 0.15);
+  }
+  @media (max-width: 540px) {
+    :global(.sched__formgrid) { grid-template-columns: 1fr; }
+    :global(.sched__grid) { grid-template-columns: 1fr; }
+  }
+
+  :global(.summary) {
+    margin: 16px 0 0;
+    padding: 12px 14px;
+    background: var(--color-bg-soft);
+    border-radius: var(--radius-sm);
+    border: 1px dashed var(--color-border);
+    font-size: 0.95rem;
+    color: var(--color-text);
+  }
+
+  :global(.sched__actions) {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 24px;
+  }
+  :global(.sched__actions .btn--primary) { margin-left: auto; }
+  :global(.btn[disabled]) {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  :global(.sched--done) {
+    text-align: center;
+    padding: 16px 8px;
+  }
+  :global(.sched__check) {
+    width: 56px; height: 56px;
+    margin: 0 auto 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(27, 138, 58, 0.12);
+    color: var(--color-success);
+    border-radius: 999px;
+    font-size: 1.6rem;
+    font-weight: 700;
+  }
+</style>

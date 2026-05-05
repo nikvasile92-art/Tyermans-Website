@@ -1,11 +1,213 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const services = [
+  { icon: "⚙️", title: "Wheel Alignment", desc: "Computerized 4-wheel alignment to keep tires wearing evenly and your car tracking straight." },
+  { icon: "🛠️", title: "Suspension & Steering", desc: "Shocks, struts, control arms, ball joints, tie rods — the work we've specialized in for 75+ years." },
+  { icon: "🛑", title: "Brakes", desc: "Complete brake service: pads, rotors, calipers, lines and ABS diagnostics." },
+  { icon: "🔧", title: "Engine & Diagnostics", desc: "Tune-ups, check-engine diagnostics, electronic troubleshooting and engine repair." },
+  { icon: "🛞", title: "Tires & Balancing", desc: "Tire mounting, road-force balancing, rotations and pressure checks." },
+  { icon: "❄️", title: "Cooling & Heating", desc: "Radiators, water pumps, hoses, A/C and heater service." },
+];
 ---
-
 <Layout>
-	<Welcome />
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero__inner">
+      <div class="hero__copy">
+        <span class="eyebrow">Burbank, CA &middot; Since 1948</span>
+        <h1>Honest auto repair from a family that's been here for 75 years.</h1>
+        <p>
+          Tyerman's Automotive &amp; Suspension is a 13-bay shop on Magnolia Blvd
+          specializing in wheel alignment, suspension, brakes, and complete
+          mechanical service. Drop the keys with people who've been doing this
+          longer than most shops have been open.
+        </p>
+        <div class="hero__cta">
+          <a href="/appointment" class="btn btn--primary">Book an appointment</a>
+          <a href="tel:+18188467291" class="btn btn--ghost">Call (818) 846-7291</a>
+        </div>
+        <ul class="hero__badges">
+          <li>✓ ASE-trained technicians</li>
+          <li>✓ 13 service bays</li>
+          <li>✓ Family-owned &amp; operated</li>
+        </ul>
+      </div>
+      <div class="hero__media" aria-hidden="true">
+        <img
+          src="https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=1100&q=80"
+          alt="Mechanic working under a car on a lift"
+          loading="eager"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES PREVIEW -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">What we do</span>
+          <h2>Full-service auto care, with a specialty.</h2>
+        </div>
+        <a href="/services" class="btn btn--ghost">All services →</a>
+      </div>
+      <div class="grid grid--3" style="margin-top: 32px;">
+        {services.map((s) => (
+          <article class="card">
+            <span class="icon-circle">{s.icon}</span>
+            <h3>{s.title}</h3>
+            <p>{s.desc}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section class="section section--soft">
+    <div class="container grid grid--2" style="align-items:center;">
+      <div>
+        <span class="eyebrow">The Tyerman's way</span>
+        <h2>The shop your neighbors recommend.</h2>
+        <p>
+          Founded in 1948 by Lockheed engineer Dave Tyerman, our shop has built
+          its reputation one steering linkage and brake job at a time. The team
+          has expanded the original alignment work into full-service engine
+          repair, diagnostics, and electronic troubleshooting — but the
+          philosophy hasn't changed: do the job right, explain it clearly, and
+          stand behind the work.
+        </p>
+        <ul class="check-list">
+          <li>Up-front estimates &mdash; we call before any extra work.</li>
+          <li>Free post-service alignment check.</li>
+          <li>Loaner / shuttle within Burbank when available.</li>
+        </ul>
+        <a href="/about" class="btn btn--primary" style="margin-top: 8px;">Read our story</a>
+      </div>
+      <div class="why-card">
+        <div class="why-stat"><span>75+</span><small>years in business</small></div>
+        <div class="why-stat"><span>13</span><small>service bays</small></div>
+        <div class="why-stat"><span>4.8★</span><small>average review</small></div>
+        <div class="why-stat"><span>1948</span><small>year founded</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section section--dark">
+    <div class="container cta">
+      <div>
+        <h2>Pulling, vibrating, or squeaking?</h2>
+        <p>Book a slot online &mdash; we'll confirm by email or phone.</p>
+      </div>
+      <a href="/appointment" class="btn btn--inverse">Schedule a visit</a>
+    </div>
+  </section>
 </Layout>
+
+<style>
+  .hero {
+    padding: 72px 0 64px;
+    background: linear-gradient(180deg, #f8fafd 0%, #ffffff 100%);
+  }
+  .hero__inner {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .hero__copy h1 { margin-bottom: 16px; }
+  .hero__copy p { font-size: 1.08rem; color: var(--color-text-muted); max-width: 56ch; }
+  .hero__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 12px 0 28px;
+  }
+  .hero__badges {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+  }
+  .hero__media img {
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    width: 100%;
+  }
+  @media (max-width: 880px) {
+    .hero__inner { grid-template-columns: 1fr; }
+  }
+
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .section-head h2 { margin: 0; }
+
+  .check-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px;
+    color: var(--color-text-muted);
+  }
+  .check-list li {
+    padding: 6px 0 6px 28px;
+    position: relative;
+  }
+  .check-list li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+    font-weight: 800;
+  }
+
+  .why-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    box-shadow: var(--shadow-md);
+  }
+  .why-stat {
+    background: var(--color-bg-soft);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    text-align: left;
+  }
+  .why-stat span {
+    display: block;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--color-accent);
+    line-height: 1;
+  }
+  .why-stat small {
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+  }
+
+  .cta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .cta p { margin: 0; }
+</style>

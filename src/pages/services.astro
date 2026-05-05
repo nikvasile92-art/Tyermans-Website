@@ -1,0 +1,180 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const groups = [
+  {
+    title: "Suspension, Steering & Alignment",
+    desc: "Our specialty since 1948. We carry on Dave Tyerman's original frame, alignment and suspension work with modern, computerized equipment.",
+    items: [
+      "Computerized 4-wheel alignment",
+      "Shocks, struts & strut mounts",
+      "Control arms, ball joints, bushings",
+      "Tie rods, idler & pitman arms",
+      "Power steering pumps & racks",
+      "Frame & axle service",
+    ],
+  },
+  {
+    title: "Brakes",
+    desc: "Pads, rotors, calipers, hoses, master cylinders, lines, and ABS diagnostics — all with a free safety inspection.",
+    items: [
+      "Brake pad & rotor replacement",
+      "Caliper rebuild & replacement",
+      "Brake fluid flush",
+      "ABS diagnosis & repair",
+      "Parking brake service",
+      "Brake hose & line replacement",
+    ],
+  },
+  {
+    title: "Tires & Balancing",
+    desc: "Tire mounting, road-force balancing, rotations and pressure-monitor service.",
+    items: [
+      "Tire mounting & balancing",
+      "Road-force balancing",
+      "Tire rotation & pressure check",
+      "TPMS service",
+      "Tire repair (when safe)",
+    ],
+  },
+  {
+    title: "Engine, Diagnostics & Electrical",
+    desc: "Modern cars are computers on wheels. Our techs read, repair, and re-program them.",
+    items: [
+      "Check-engine light diagnosis",
+      "Tune-ups & ignition service",
+      "Engine repair & rebuild",
+      "Alternators & starters",
+      "Battery testing & replacement",
+      "Electrical troubleshooting",
+    ],
+  },
+  {
+    title: "Cooling, Heating & A/C",
+    desc: "Keep your engine and your cabin at the right temperature.",
+    items: [
+      "Radiator & water pump",
+      "Coolant flush",
+      "Hoses & thermostat",
+      "Heater core service",
+      "A/C diagnosis & recharge",
+    ],
+  },
+  {
+    title: "Performance & Upgrades",
+    desc: "Brake & suspension upgrades, electrical upgrades, and performance tuning for street cars.",
+    items: [
+      "Performance suspension installs",
+      "Brake upgrades",
+      "Electrical & lighting upgrades",
+      "Performance tuning",
+    ],
+  },
+];
+---
+<Layout title="Services — Tyerman's Automotive & Suspension">
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Services</span>
+      <h1>Everything from a wheel alignment to a full engine rebuild.</h1>
+      <p>
+        We're best known for suspension and alignment, but our 13-bay shop
+        handles complete mechanical service for nearly every make and model
+        on the road today.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="grid grid--2">
+        {groups.map((g) => (
+          <article class="service-card">
+            <h2>{g.title}</h2>
+            <p>{g.desc}</p>
+            <ul>
+              {g.items.map((i) => <li>{i}</li>)}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="container cta">
+      <div>
+        <h2>Don't see what you need?</h2>
+        <p>If we can't do it, we'll point you to someone we trust who can. Give us a call.</p>
+      </div>
+      <div style="display:flex; gap:12px; flex-wrap:wrap;">
+        <a href="tel:+18188467291" class="btn btn--inverse">(818) 846-7291</a>
+        <a href="/appointment" class="btn btn--primary">Book online</a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-hero {
+    padding: 72px 0 32px;
+    background: linear-gradient(180deg, #f6f8fb 0%, #ffffff 100%);
+  }
+  .page-hero h1 { max-width: 22ch; }
+  .page-hero p {
+    color: var(--color-text-muted);
+    max-width: 64ch;
+    font-size: 1.08rem;
+  }
+
+  .service-card {
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 28px;
+    box-shadow: var(--shadow-sm);
+  }
+  .service-card h2 {
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+  }
+  .service-card p {
+    color: var(--color-text-muted);
+    margin-bottom: 16px;
+  }
+  .service-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px 16px;
+  }
+  .service-card li {
+    padding-left: 18px;
+    position: relative;
+    color: var(--color-text);
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+  .service-card li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+    font-weight: 800;
+  }
+
+  .cta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .cta p { margin: 0; }
+
+  @media (max-width: 700px) {
+    .service-card ul { grid-template-columns: 1fr; }
+  }
+</style>
