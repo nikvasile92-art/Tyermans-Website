@@ -1,5 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import aboutImg from "../assets/tyermans-about.jpg";
 
 const milestones = [
   { year: "1948", title: "Tyerman's opens", body: "Dave Tyerman, an engineer at Lockheed, opens a small alignment & suspension shop in Burbank." },
@@ -28,9 +30,12 @@ const milestones = [
         </p>
       </div>
       <div class="about-hero__media" aria-hidden="true">
-        <img
-          src="https://images.unsplash.com/photo-1632823469850-1e7e44a5b6f5?auto=format&fit=crop&w=1100&q=80"
-          alt="Vintage style auto shop sign"
+        <Image
+          src={aboutImg}
+          alt="Tyerman's Automotive & Suspension shop"
+          loading="eager"
+          widths={[600, 900, 1200]}
+          sizes="(max-width: 880px) 100vw, 50vw"
         />
       </div>
     </div>
@@ -95,9 +100,9 @@ const milestones = [
   .about-hero__media img {
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-lg);
-    aspect-ratio: 4 / 3;
-    object-fit: cover;
     width: 100%;
+    height: auto;
+    display: block;
   }
   @media (max-width: 880px) {
     .about-hero { grid-template-columns: 1fr; }

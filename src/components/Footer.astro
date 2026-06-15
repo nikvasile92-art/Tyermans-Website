@@ -1,14 +1,15 @@
 ---
+import LogoMark from "./LogoMark.astro";
 const year = new Date().getFullYear();
 ---
 <footer class="site-footer">
   <div class="container site-footer__grid">
     <div>
       <div class="brand">
-        <span class="brand__mark" aria-hidden="true">T</span>
+        <!-- <LogoMark class="brand__mark" /> -->
         <div>
-          <strong>Tyerman's Automotive &amp; Suspension</strong>
-          <div class="muted">Family-owned in Burbank since 1948</div>
+          <strong>Tyerman's Automotive &amp;&nbsp;Suspension</strong>
+          <div class="muted">Family-owned in Burbank since&nbsp;1948</div>
         </div>
       </div>
       <p class="muted small" style="margin-top:12px;">
@@ -20,8 +21,8 @@ const year = new Date().getFullYear();
     <div>
       <h4>Visit</h4>
       <p class="muted">
-        1420 W Magnolia Blvd<br/>
-        Burbank, CA 91506
+         <a href="https://maps.google.com/?q=1420+W+Magnolia+Blvd+Burbank+CA+91506" target="_blank" rel="noopener"> 1420 W Magnolia Blvd<br/>
+        Burbank, CA 91506</a>
       </p>
       <p class="muted">
         Mon–Fri: 8:00&nbsp;AM – 5:00&nbsp;PM<br/>
@@ -33,7 +34,7 @@ const year = new Date().getFullYear();
       <h4>Contact</h4>
       <p class="muted">
         <a href="tel:+18188467291">(818)&nbsp;846-7291</a><br/>
-        <a href="mailto:service@tyermans.example.com">service@tyermans.example.com</a>
+        <a href="mailto:joel@tyermans.com">joel@tyermans.com</a>
       </p>
     </div>
 
@@ -42,15 +43,15 @@ const year = new Date().getFullYear();
       <ul class="links">
         <li><a href="/services">Services</a></li>
         <li><a href="/gallery">Photo album</a></li>
-        <li><a href="/appointment">Book appointment</a></li>
+        <li><a href="/appointment">Request appointment</a></li>
         <li><a href="/contact">Contact &amp; directions</a></li>
       </ul>
     </div>
   </div>
 
   <div class="container site-footer__base">
-    <span>&copy; {year} Tyerman's Automotive &amp; Suspension. All rights reserved.</span>
-    <span class="muted small">Information sourced from tyermans.com.</span>
+    <span>&copy; {year} Tyerman's Automotive &amp; Suspension. All&nbsp;rights&nbsp;reserved.</span>
+    <span class="muted small">California BAR license&nbsp;number: 240797</span>
   </div>
 </footer>
 
@@ -59,7 +60,6 @@ const year = new Date().getFullYear();
     background: var(--color-bg-dark);
     color: #cdd5e0;
     padding: 64px 0 24px;
-    margin-top: 80px;
   }
   .site-footer h4 {
     color: #ffffff;
@@ -81,14 +81,7 @@ const year = new Date().getFullYear();
   }
   .site-footer .brand strong { color: #fff; }
   .site-footer .brand__mark {
-    width: 40px; height: 40px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--color-primary);
-    color: #fff;
-    border-radius: 8px;
-    font-weight: 800;
+    flex-shrink: 0;
   }
   .muted { color: #97a2b3; }
   .small { font-size: 0.88rem; }

@@ -1,28 +1,21 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { Image } from "astro:assets";
 
-// Auto-shop / mechanic photos. Replace with your own by dropping
-// images into /public/gallery/ and updating the src paths below.
-const photos = [
-  { src: "https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=1400&q=80", alt: "Mechanic working under a vehicle on a lift" },
-  { src: "https://images.unsplash.com/photo-1518295751675-2a94d6232ef9?auto=format&fit=crop&w=1400&q=80", alt: "Car raised on a service lift in a clean shop" },
-  { src: "https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=1400&q=80", alt: "Close-up of a wheel and brake assembly during service" },
-  { src: "https://images.unsplash.com/photo-1632823469850-1e7e44a5b6f5?auto=format&fit=crop&w=1400&q=80", alt: "Vintage style auto shop sign" },
-  { src: "https://images.unsplash.com/photo-1517524206127-48bbd363f3d7?auto=format&fit=crop&w=1400&q=80", alt: "Engine bay being serviced" },
-  { src: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1400&q=80", alt: "Classic car in a shop" },
-  { src: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1400&q=80", alt: "Mechanic tools laid out on a workbench" },
-  { src: "https://images.unsplash.com/photo-1493238792000-8113da705763?auto=format&fit=crop&w=1400&q=80", alt: "Shock absorber suspension component" },
-  { src: "https://images.unsplash.com/photo-1635770310348-2c4befb6c5be?auto=format&fit=crop&w=1400&q=80", alt: "Mechanic checking under-hood components" },
-  { src: "https://images.unsplash.com/photo-1605152276897-4f618f831968?auto=format&fit=crop&w=1400&q=80", alt: "Brake rotor and caliper detail" },
-  { src: "https://images.unsplash.com/photo-1632823471565-1ecdf18e1c0f?auto=format&fit=crop&w=1400&q=80", alt: "Hands of a technician working on a tire" },
-  { src: "https://images.unsplash.com/photo-1632823471565-1ecdf18e1c0f?auto=format&fit=crop&w=1400&q=80", alt: "Wheel alignment rack" },
-];
+const imageModules = await import.meta.glob<{ default: ImageMetadata }>(
+  "../assets/gallery/*.{jpg,JPG,jpeg,JPEG,png,PNG,webp}",
+  { eager: true }
+);
+
+const photos = Object.values(imageModules)
+  .map((m) => m.default)
+  .sort((a, b) => a.src.localeCompare(b.src));
 ---
 <Layout title="Photo Album — Tyerman's Automotive & Suspension">
   <section class="page-hero">
     <div class="container">
       <span class="eyebrow">Photo album</span>
-      <h1>Inside the shop.</h1>
+      <h1>A peak behind the scenes.</h1>
       <p>A few snapshots from around the bays. Click any photo to view it larger.</p>
     </div>
   </section>
@@ -30,16 +23,20 @@ const photos = [
   <section class="section">
     <div class="container">
       <div class="masonry">
-        {photos.map((p, i) => (
+        {photos.map((photo, i) => (
           <button
             class="thumb"
             data-index={i}
-            data-src={p.src}
-            data-alt={p.alt}
-            aria-label={`Open photo ${i + 1}: ${p.alt}`}
+            aria-label={`Open photo ${i + 1}`}
             type="button"
           >
-            <img src={p.src} alt={p.alt} loading="lazy" />
+            <Image
+              src={photo}
+              alt={`Tyerman's Automotive shop photo ${i + 1}`}
+              widths={[400, 800]}
+              sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw"
+              loading="lazy"
+            />
           </button>
         ))}
       </div>
@@ -53,7 +50,6 @@ const photos = [
     <button class="lightbox__nav lightbox__nav--next" aria-label="Next photo">›</button>
     <figure class="lightbox__figure">
       <img id="lightbox-img" src="" alt="" />
-      <figcaption id="lightbox-caption"></figcaption>
     </figure>
   </div>
 </Layout>
@@ -82,9 +78,10 @@ const photos = [
     box-shadow: var(--shadow-sm);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     break-inside: avoid;
+    transform: translate3d(0, 0, 0);
   }
   .thumb:hover {
-    transform: translateY(-2px);
+    transform: translate3d(0, -2px, 0);
     box-shadow: var(--shadow-md);
   }
   .thumb img {
@@ -112,19 +109,13 @@ const photos = [
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 12px;
   }
   .lightbox__figure img {
     max-width: 100%;
-    max-height: 80vh;
+    max-height: 88vh;
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-lg);
     object-fit: contain;
-  }
-  .lightbox__figure figcaption {
-    color: rgba(255,255,255,0.85);
-    font-size: 0.95rem;
-    text-align: center;
   }
   .lightbox button {
     background: rgba(255,255,255,0.08);
@@ -164,22 +155,17 @@ const photos = [
 </style>
 
 <script>
-  // Vanilla lightbox — no JS framework needed.
   const thumbs = Array.from(document.querySelectorAll<HTMLButtonElement>(".thumb"));
   const lb = document.getElementById("lightbox") as HTMLDivElement | null;
   const lbImg = document.getElementById("lightbox-img") as HTMLImageElement | null;
-  const lbCap = document.getElementById("lightbox-caption") as HTMLElement | null;
-  if (!lb || !lbImg || !lbCap) {
-    /* not on this page */
-  } else {
+  if (!lb || !lbImg) { /* not on this page */ } else {
     let current = 0;
 
     const open = (idx: number) => {
       current = idx;
-      const t = thumbs[idx];
-      lbImg.src = t.dataset.src || "";
-      lbImg.alt = t.dataset.alt || "";
-      lbCap.textContent = t.dataset.alt || "";
+      const img = thumbs[idx].querySelector("img");
+      lbImg.src = img?.src || "";
+      lbImg.alt = img?.alt || "";
       lb.hidden = false;
       document.body.style.overflow = "hidden";
     };
@@ -200,9 +186,7 @@ const photos = [
     lb.querySelector(".lightbox__close")?.addEventListener("click", close);
     lb.querySelector(".lightbox__nav--prev")?.addEventListener("click", () => next(-1));
     lb.querySelector(".lightbox__nav--next")?.addEventListener("click", () => next(1));
-    lb.addEventListener("click", (e) => {
-      if (e.target === lb) close();
-    });
+    lb.addEventListener("click", (e) => { if (e.target === lb) close(); });
     document.addEventListener("keydown", (e) => {
       if (lb.hidden) return;
       if (e.key === "Escape") close();

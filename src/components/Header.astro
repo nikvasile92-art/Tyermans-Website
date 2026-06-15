@@ -1,4 +1,5 @@
 ---
+import LogoMark from "./LogoMark.astro";
 const { pathname } = Astro.url;
 const isActive = (href: string) =>
   pathname === href || (href !== "/" && pathname.startsWith(href));
@@ -13,7 +14,7 @@ const links = [
 <header class="site-header">
   <div class="container site-header__row">
     <a href="/" class="brand" aria-label="Tyerman's Automotive home">
-      <span class="brand__mark" aria-hidden="true">T</span>
+      <LogoMark class="brand__mark" />
       <span class="brand__text">
         <span class="brand__name">Tyerman's</span>
         <span class="brand__tagline">Automotive &amp; Suspension</span>
@@ -33,7 +34,7 @@ const links = [
           </li>
         ))}
       </ul>
-      <a href="/appointment" class="btn btn--primary site-nav__cta">Book Appointment</a>
+      <a href="/appointment" class="btn btn--primary site-nav__cta">Request Appointment</a>
     </nav>
   </div>
 </header>
@@ -61,16 +62,10 @@ const links = [
     color: var(--color-text);
   }
   .brand__mark {
-    width: 40px; height: 40px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--color-primary);
-    color: #fff;
-    border-radius: 8px;
-    font-weight: 800;
-    font-size: 1.1rem;
-    letter-spacing: -0.02em;
+    width: auto;
+    height: 40px;
+    flex-shrink: 0;
+    overflow: visible;
   }
   .brand__name {
     display: block;
@@ -98,11 +93,17 @@ const links = [
     padding: 0;
     gap: 24px;
   }
+  .site-nav li {
+    display: flex;
+  }
   .site-nav a {
-    color: var(--color-text);
     font-weight: 500;
-    padding: 6px 0;
+    padding: 6px;
     position: relative;
+
+    &:not(.btn--primary) {
+      color: var(--color-text);
+    }
   }
   .site-nav a:hover { color: var(--color-primary); }
   .site-nav a.is-active::after {
@@ -143,7 +144,7 @@ const links = [
       flex-direction: column;
       align-items: stretch;
       gap: 0;
-      padding: 12px 24px 24px;
+      padding: 0px 24px 0px;
       box-shadow: var(--shadow-md);
       max-height: 0;
       overflow: hidden;

@@ -4,48 +4,47 @@ import Layout from "../layouts/Layout.astro";
 const groups = [
   {
     title: "Suspension, Steering & Alignment",
-    desc: "Our specialty since 1948. We carry on Dave Tyerman's original frame, alignment and suspension work with modern, computerized equipment.",
+    desc: "Our specialty since 1948. We handle all alignments from lifted and lowered vehicles to motorhomes and small buses.",
     items: [
       "Computerized 4-wheel alignment",
-      "Shocks, struts & strut mounts",
-      "Control arms, ball joints, bushings",
-      "Tie rods, idler & pitman arms",
-      "Power steering pumps & racks",
-      "Frame & axle service",
+      "Shocks, struts & strut&nbsp;mounts",
+      "Control arms, ball joints,&nbsp;bushings",
+      "Tie rods, idler & pitman&nbsp;arms",
+      "Power steering pumps &amp;&nbsp;racks",
     ],
   },
   {
     title: "Brakes",
     desc: "Pads, rotors, calipers, hoses, master cylinders, lines, and ABS diagnostics — all with a free safety inspection.",
     items: [
-      "Brake pad & rotor replacement",
-      "Caliper rebuild & replacement",
-      "Brake fluid flush",
-      "ABS diagnosis & repair",
-      "Parking brake service",
-      "Brake hose & line replacement",
+      "Brake pad &amp; rotor&nbsp;replacement",
+      "Caliper rebuild &amp;&nbsp;replacement",
+      "Brake fluid&nbsp;flush",
+      "ABS diagnosis &amp;&nbsp;repair",
+      "Parking brake&nbsp;service",
+      "Brake hose &amp; line&nbsp;replacement",
     ],
   },
   {
     title: "Tires & Balancing",
     desc: "Tire mounting, road-force balancing, rotations and pressure-monitor service.",
     items: [
-      "Tire mounting & balancing",
-      "Road-force balancing",
-      "Tire rotation & pressure check",
-      "TPMS service",
-      "Tire repair (when safe)",
+      "Tire mounting &amp;&nbsp;balancing",
+      "Road-force&nbsp;balancing",
+      "Tire rotation &amp; pressure&nbsp;check",
+      "TPMS&nbsp;service",
+      "Tire repair (when&nbsp;safe)",
     ],
   },
   {
     title: "Engine, Diagnostics & Electrical",
     desc: "Modern cars are computers on wheels. Our techs read, repair, and re-program them.",
     items: [
-      "Check-engine light diagnosis",
-      "Tune-ups & ignition service",
-      "Engine repair & rebuild",
-      "Alternators & starters",
-      "Battery testing & replacement",
+      "Check-engine light&nbsp;diagnosis",
+      "Tune-ups &amp; ignition&nbsp;service",
+      "Engine repair &amp;&nbsp;rebuild",
+      "Alternators &amp;&nbsp;starters",
+      "Battery testing &amp;&nbsp;replacement",
       "Electrical troubleshooting",
     ],
   },
@@ -53,11 +52,11 @@ const groups = [
     title: "Cooling, Heating & A/C",
     desc: "Keep your engine and your cabin at the right temperature.",
     items: [
-      "Radiator & water pump",
-      "Coolant flush",
-      "Hoses & thermostat",
-      "Heater core service",
-      "A/C diagnosis & recharge",
+      "Radiator &amp; water&nbsp;pump",
+      "Coolant&nbsp;flush",
+      "Hoses &amp thermostat",
+      "Heater core&nbsp;service",
+      "A/C diagnosis &amp;&nbsp;recharge",
     ],
   },
   {
@@ -65,8 +64,8 @@ const groups = [
     desc: "Brake & suspension upgrades, electrical upgrades, and performance tuning for street cars.",
     items: [
       "Performance suspension installs",
-      "Brake upgrades",
-      "Electrical & lighting upgrades",
+      "Brake&nbsp;upgrades",
+      "Electrical &amp; lighting upgrades",
       "Performance tuning",
     ],
   },
@@ -93,7 +92,7 @@ const groups = [
             <h2>{g.title}</h2>
             <p>{g.desc}</p>
             <ul>
-              {g.items.map((i) => <li>{i}</li>)}
+              {g.items.map((i) => <li set:html={i} />)}
             </ul>
           </article>
         ))}
@@ -109,7 +108,7 @@ const groups = [
       </div>
       <div style="display:flex; gap:12px; flex-wrap:wrap;">
         <a href="tel:+18188467291" class="btn btn--inverse">(818) 846-7291</a>
-        <a href="/appointment" class="btn btn--primary">Book online</a>
+        <a href="/appointment" class="btn btn--primary">Request an appointment</a>
       </div>
     </div>
   </section>
@@ -146,9 +145,11 @@ const groups = [
     list-style: none;
     padding: 0;
     margin: 0;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4px 16px;
+    columns: 2;
+    column-gap: 16px;
+  }
+  .service-card li {
+    break-inside: avoid;
   }
   .service-card li {
     padding-left: 18px;
@@ -158,7 +159,7 @@ const groups = [
     line-height: 1.7;
   }
   .service-card li::before {
-    content: "•";
+    content: "\2022";
     position: absolute;
     left: 0;
     color: var(--color-primary);
@@ -175,6 +176,6 @@ const groups = [
   .cta p { margin: 0; }
 
   @media (max-width: 700px) {
-    .service-card ul { grid-template-columns: 1fr; }
+    .service-card ul { columns: 1; }
   }
 </style>

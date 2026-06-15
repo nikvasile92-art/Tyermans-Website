@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 
-const SHOP_EMAIL = "service@tyermans.example.com";
+const SHOP_EMAIL = "joel@tyermans.com";
 
 const SERVICES = [
   "Wheel alignment",
@@ -14,9 +14,9 @@ const SERVICES = [
 ];
 
 const TIME_SLOTS = [
-  "8:00 AM", "9:00 AM", "10:00 AM",
-  "11:00 AM", "12:00 PM", "1:00 PM",
-  "2:00 PM", "3:00 PM", "4:00 PM",
+  "8:00 AM", "8:30 AM", "9:00 AM", "9:30 AM", "10:00 AM", "10:30 AM",
+  "11:00 AM", "1:30 PM",
+  "2:00 PM", "2:30 PM", "3:00 PM", "3:30 PM",
 ];
 
 // Generate 14 working-day options starting tomorrow, skipping weekends.
@@ -53,49 +53,49 @@ export default function AppointmentScheduler() {
   const [vehicle, setVehicle] = useState("");
   const [notes, setNotes] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   const canAdvance1 = service !== "";
   const canAdvance2 = date !== "" && time !== "";
+  const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
   const canSubmit =
     name.trim() !== "" &&
-    (email.trim() !== "" || phone.trim() !== "") &&
+    emailValid &&
     vehicle.trim() !== "";
 
   const dayLabel =
     days.find((d) => d.iso === date)?.label ?? date;
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!canSubmit) return;
+    if (!canSubmit || submitting) return;
+    setSubmitting(true);
 
     const subject = `Appointment request — ${service} on ${dayLabel} at ${time}`;
-    const lines = [
-      "Hi Tyerman's,",
-      "",
-      "I'd like to book an appointment. Details:",
-      "",
-      `Name:     ${name}`,
-      `Phone:    ${phone || "(not provided)"}`,
-      `Email:    ${email || "(not provided)"}`,
-      `Vehicle:  ${vehicle}`,
-      `Service:  ${service}`,
-      `Date:     ${dayLabel}`,
-      `Time:     ${time}`,
-      "",
-      "Notes:",
-      notes || "(none)",
-      "",
-      "Thanks!",
-      name,
-    ];
-    const body = lines.join("\n");
+    const message = [
+      `Name: ${name}`,
+      `Phone: ${phone || "(not provided)"}`,
+      `Email: ${email || "(not provided)"}`,
+      `Vehicle: ${vehicle}`,
+      `Service: ${service}`,
+      `Date: ${dayLabel}`,
+      `Time: ${time}`,
+      `Notes: ${notes || "(none)"}`,
+    ].join("\n");
 
-    const mailto = `mailto:${SHOP_EMAIL}?subject=${encodeURIComponent(
-      subject,
-    )}&body=${encodeURIComponent(body)}`;
+    await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify({
+        access_key: "cbbba68d-1040-4839-8b98-2c1ffc904c83",
+        subject,
+        from_name: name,
+        email,
+        message,
+      }),
+    });
 
-    // Open the user's email client with a pre-filled message.
-    window.location.href = mailto;
+    setSubmitting(false);
     setSubmitted(true);
   }
 
@@ -103,15 +103,14 @@ export default function AppointmentScheduler() {
     return (
       <div className="sched sched--done">
         <div className="sched__check" aria-hidden="true">✓</div>
-        <h2>Almost there!</h2>
+        <h2>Request sent!</h2>
         <p>
-          Your email client should have opened with your appointment request
-          pre-filled to <strong>{SHOP_EMAIL}</strong>. Hit send and we'll
-          confirm by phone or email within one business day.
+          We received your appointment request and will confirm by phone or
+          email within one business day.
         </p>
         <p>
-          If your email app didn't open, you can call us at{" "}
-          <a href="tel:+18188467291">(818) 846-7291</a> instead.
+          Questions? Call us at{" "}
+          <a href="tel:+18188467291">(818) 846-7291</a>.
         </p>
         <button
           type="button"
@@ -274,19 +273,20 @@ export default function AppointmentScheduler() {
               <input
                 type="tel"
                 value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+                onChange={(e) => setPhone(e.target.value.replace(/[^\d\s\-()+.]/g, ""))}
                 autoComplete="tel"
                 placeholder="(818) 555-0123"
               />
             </label>
 
             <label className="field">
-              <span>Email</span>
+              <span>Email<i>*</i></span>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 autoComplete="email"
+                required
                 placeholder="you@example.com"
               />
             </label>
@@ -314,9 +314,7 @@ export default function AppointmentScheduler() {
           </div>
 
           <p className="sched__hint sched__hint--small">
-            <strong>Provide either a phone number or an email</strong> so we can
-            confirm. Submitting opens your email app to send the request to{" "}
-            <code>{SHOP_EMAIL}</code>.
+            <strong>Email is required</strong> so we can confirm your appointment.
           </p>
 
           <div className="summary">
@@ -334,9 +332,9 @@ export default function AppointmentScheduler() {
             <button
               type="submit"
               className="btn btn--primary"
-              disabled={!canSubmit}
+              disabled={!canSubmit || submitting}
             >
-              Send request
+              {submitting ? "Sending…" : "Send request"}
             </button>
           </div>
         </fieldset>
