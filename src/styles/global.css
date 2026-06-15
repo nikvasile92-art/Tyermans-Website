@@ -1,3 +1,13 @@
+/* Metric-matched fallback so Inter swap causes no layout shift */
+@font-face {
+  font-family: "Inter Fallback";
+  src: local("Arial");
+  ascent-override: 90%;
+  descent-override: 22%;
+  line-gap-override: 0%;
+  size-adjust: 107%;
+}
+
 :root {
   --color-bg: #ffffff;
   --color-bg-soft: #f6f8fb;
@@ -25,8 +35,8 @@
   --radius-md: 12px;
   --radius-lg: 20px;
 
-  --font-sans: "Inter Variable", "Inter", system-ui, -apple-system, sans-serif;
-  --font-display: "Inter Variable", "Inter", system-ui, sans-serif;
+  --font-sans: "Inter Variable", "Inter", "Inter Fallback", system-ui, -apple-system, sans-serif;
+  --font-display: "Inter Variable", "Inter", "Inter Fallback", system-ui, sans-serif;
 
   --container: 1180px;
 }
