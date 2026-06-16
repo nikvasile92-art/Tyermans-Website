@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 
-const SHOP_EMAIL = "joel@tyermans.com";
+const SHOP_EMAIL = "quotes@tyermans.com";
 
 const SERVICES = [
   "Wheel alignment",

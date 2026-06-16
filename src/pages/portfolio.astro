@@ -35,7 +35,7 @@ const photos = Object.values(imageModules)
               alt={`Tyerman's Automotive shop photo ${i + 1}`}
               widths={[400, 800]}
               sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw"
-              loading="lazy"
+              loading={i < 9 ? "eager" : "lazy"}
             />
           </button>
         ))}
@@ -72,22 +72,21 @@ const photos = Object.values(imageModules)
     padding: 0;
     border: 0;
     background: transparent;
-    border-radius: var(--radius-md);
-    overflow: hidden;
     cursor: zoom-in;
     box-shadow: var(--shadow-sm);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: box-shadow 0.2s ease;
     break-inside: avoid;
-    transform: translate3d(0, 0, 0);
+    -webkit-column-break-inside: avoid;
   }
   .thumb:hover {
-    transform: translate3d(0, -2px, 0);
     box-shadow: var(--shadow-md);
   }
   .thumb img {
     width: 100%;
     height: auto;
     display: block;
+    border-radius: var(--radius-md);
+    overflow: hidden;
   }
 
   .lightbox {
