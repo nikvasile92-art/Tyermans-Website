@@ -1,0 +1,14 @@
+# Tyerman's Automotive & Suspension
+
+> Family-owned auto repair shop in Burbank, CA, specializing in wheel alignment, suspension, and brake service.
+
+Tyerman's Automotive & Suspension is a 13-bay shop on Magnolia Blvd in Burbank, CA offering wheel alignment, suspension and steering repair, brakes, engine diagnostics, tires, and cooling/heating service.
+
+## Pages
+
+- [Home](https://tyermans.com/): Overview of the shop and core services.
+- [Services](https://tyermans.com/services): Full list of automotive services offered.
+- [Portfolio](https://tyermans.com/portfolio): Photos of past customer vehicles and work.
+- [About](https://tyermans.com/about): Shop history and team background.
+- [Contact](https://tyermans.com/contact): Location, hours, and contact details.
+- [Request Appointment](https://tyermans.com/appointment): Schedule a service appointment.
